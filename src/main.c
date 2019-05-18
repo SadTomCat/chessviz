@@ -4,7 +4,8 @@
 
 int main()
 {
-    print_board();
+    manual();
+    print_board(1);
 
     return 0;
 }

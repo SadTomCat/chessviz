@@ -1,10 +1,10 @@
-#ifndef BOARD_H_
-#define BOARD_H_
+#ifndef GAME_H_
+#define GAME_H_
 
 #define RAWS 11
 #define COL 11
 
-char board[RAWS][COL] = {
+static char board[RAWS][COL] = {
     {'8', '|', 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'},
     {'7', '|', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
     {'6', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -17,4 +17,4 @@ char board[RAWS][COL] = {
     {' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}
 };
 
-#endif //BOARD_H_
+#endif //GAME_H_

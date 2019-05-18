@@ -3,9 +3,10 @@
 
 #include <inttypes.h>
 #include <stdio.h>
-#include "include/game.h"
+#include <stdlib.h>
+#include "game.h"
 
-void print_board(void);
+void print_board(uint8_t figure_color);
 void manual();
 
 #endif //BOARD_PRINT_PLAIN_H_
