@@ -15,4 +15,5 @@ run:
 
 clean:
 	rm ./bin/main
+	rm ./built/*
 
