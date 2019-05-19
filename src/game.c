@@ -17,16 +17,12 @@ void play()
 
     while (i < 10) {        
         //white
-        print_board(white->flag);
-        input(white);
-
+        input(white, 0);
         board[white->y2][white->x2] = board[white->y1][white->x1];
         board[white->y1][white->x1] = ' ';
                 
         //black
-        print_board(black->flag);
-        input(black);
-
+        input(black, 0);
         board[black->y2][black->x2] = board[black->y1][black->x1];
         board[black->y1][black->x1] = ' ';
 

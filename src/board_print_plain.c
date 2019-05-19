@@ -20,28 +20,30 @@ void manual()
         printf("| 3.Для ввода использовать ТОЛЬКО латинские буквы.         |\n");
         printf("| 4.Ход белых - разрешено играть большими фигурами.        |\n");
         printf("| 5.Ход черных - разрешено играть маленькими фигурами.     |\n");
+        printf("| 6.Черные фигуры - обозначаются фиолетовым цветом         |\n");
         printf("|                                                          |\n");
-        printf("|                           Примеры                        |\n");
+        printf("|                          Примеры                         |\n");
         printf("|                                                          |\n");
         printf("| 1.E4-E2 или E4-e2 или e4-E2, для ходов без взятия.       |\n");
         printf("| 2.E4xE2 или E4xe2 или e4xE2, для ходов со взятием.       |\n");
-        printf("| 2.E4xE2 или E4xe2 или e4xE2, для ходов со взятием.       |\n");
-        printf(" \\                                                        /\n");
+        printf("| 3.E4xE2 или E4xe2 или e4xE2, для ходов со взятием.       |\n");
+        printf("|                                                          |\n");
+        printf(" \\                               program by SadTomCat(с)  /\n");
         printf("  --------------------------------------------------------\n");
 
         printf("                  1.Продолжить     2.Выйти                \n");
+
+        ch = getchar();
 
         if (ch == '2') {
             exit(0);
         }
 
-    } while (ch = getchar() != '1');
+    } while (ch != '1');
 }
 
-void print_board(uint8_t figure_color) 
+void print_board() 
 {
-    printf("Нажмите ENTER.\n\n");
-    while (getchar() != '\n');
     system("clear");
     printf("\n");
     for (uint32_t i = 0; i < RAWS; ++i) {
@@ -54,25 +56,6 @@ void print_board(uint8_t figure_color)
         }
 
         printf("\n");
-    }
-
-    if (figure_color == 1) {
-        printf("Ход белых: ");
-        return;
-    } 
-
-    if (figure_color == 2) {
-        printf("Ход черных: ");
-    }
-
-    if (figure_color == 3) {
-        printf("Неверный ввод, попробуйте ещё раз.\n");
-        printf("Ход белых: ");
-    }
-
-    if (figure_color == 4) {
-        printf("Неверный ввод, попробуйте ещё раз.\n");
-        printf("Ход черных: ");
     }
 }
 

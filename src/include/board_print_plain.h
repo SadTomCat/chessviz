@@ -16,7 +16,7 @@
 #define KMAG6  "\x1B[36m" //голубой
 #define KMAG9  "\x1B[39m" //белый
 
-void print_board(uint8_t figure_color);
+void print_board();
 void manual();
 
 typedef struct {
