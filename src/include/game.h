@@ -1,20 +1,11 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#define RAWS 11
-#define COL 11
+#include <stdio.h>
+#include "board_print_plain.h"
+#include "board_read.h"
 
-static char board[RAWS][COL] = {
-    {'8', '|', 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'},
-    {'7', '|', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
-    {'6', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-    {'5', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-    {'4', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-    {'3', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-    {'2', '|', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
-    {'1', '|', 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'},
-    {' ', ' ', '-', '-', '-', '-', '-', '-', '-', '-'},
-    {' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}
-};
+void input(Move* move);
+void play();
 
 #endif //GAME_H_
