@@ -35,7 +35,7 @@ void input(Move* move, uint8_t type_err)
             break;
 
         case 5:
-            printf("Вы пытаетесь забрать не свою фигуру\n");
+            printf("Вы пытаетесь забрать свою фигуру\n");
             break;
     }
 
@@ -166,6 +166,17 @@ void white(Move* move)
 
         checkY(move);
         break;
+
+    case 'R':
+        if (move->y1 == move->y2) {
+            checkX(move);
+        } else if (move->x1 == move->x2) {
+            checkY(move);
+        } else {
+            input(move, 1);
+        }
+
+        break;
     }
 }
 
@@ -173,12 +184,24 @@ void black(Move* move)
 {
     switch (board[move->y1][move->x1]) {
     case 'p':
-        if ((move->y1 - move->y2) > 2 || (move->y1 - move->y2) < 1) {
+        if ((move->y2 - move->y1) > 2 || (move->y2 - move->y1) < 1) {
             input(move, 1);
             return;
         }
 
         checkY(move);
+        break;
+    
+
+    case 'r':
+        if (move->y1 == move->y2) {
+            checkX(move);
+        } else if (move->x1 == move->x2) {
+            checkY(move);
+        } else {
+            input(move, 1);
+        }
+
         break;
     }
 }
