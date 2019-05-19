@@ -46,7 +46,11 @@ void print_board(uint8_t figure_color)
     printf("\n");
     for (uint32_t i = 0; i < RAWS; ++i) {
         for (uint32_t j = 0; j < COL; ++j) {
-            printf("%c ", board[i][j]);
+            if ((board[i][j] > 'a' && board[i][j] < 'z') && i <= 7 )  {
+                printf(KMAG5 "%c ", board[i][j]);
+            } else {
+                printf(KMAG9 "%c ", board[i][j]);
+            }
         }
 
         printf("\n");
