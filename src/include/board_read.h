@@ -11,6 +11,6 @@ void checkY(Move* move);
 void checkD(Move* move);
 void white(Move* move);
 void black(Move* move);
-
+void check_pawn(Move* move);
 
 #endif //BOARD_READ_H_

@@ -159,6 +159,16 @@ void white(Move* move)
 {
     switch (board[move->y1][move->x1]) {
     case 'P':
+        //попытка забрать перднию фигуру
+        if ((move->type_move == 'x' || move->type_move == 'X') && 
+            ((move->x2 - move->x1 == 1) || (move->x2 - move->x1 == -1)) && 
+                (move->y2 - move->y1 == -1)) {
+            return;
+        } else if (move->type_move == 'x' || move->type_move == 'X') {
+            input(move, 1);
+            return;
+        } 
+
         if ((move->y1 - move->y2) > 2 || (move->y1 - move->y2) < 1) {
             input(move, 1);
             return;
@@ -177,6 +187,65 @@ void white(Move* move)
         }
 
         break;
+
+    case 'N':
+        if ((move->y1 - move->y2 == 2) && (move->x1 - move->x2 == 1)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 2) && (move->x2 - move->x1 == 1)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 2) && (move->x1 - move->x2 == 1)) {
+            break;
+        }
+
+        if ((move->y1 - move->y2 == 2) && (move->x2 - move->x1 == 1)) {
+            break;
+        }
+
+        if ((move->y1 - move->y2 == 1) && (move->x2 - move->x1 == 2)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 1) && (move->x2 - move->x1 == 2)) {
+            break;
+        }
+
+        if ((move->y1 - move->y2 == 1) && (move->x1 - move->x2 == 2)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 1) && (move->x1 - move->x2 == 2)) {
+            break;
+        }
+
+        input(move, 1);
+
+    case 'B':
+        checkD(move);
+
+        break;
+    
+    case 'K':
+        if ((move->y1 - move->y2 != 1) && (move->y2 - move->y1 != 1)
+            && ((move->x1 - move->x2 != 1) && (move->x2 - move->x1 != 1))) {
+            input(move, 1);
+        } else {
+            break;
+        }
+
+    case 'Q':
+        if (move->y1 == move->y2) {
+            checkX(move);
+        } else if (move->x1 == move->x2) {
+            checkX(move);
+        } else {
+            checkD(move);
+        }
+ 
+        break;
     }
 }
 
@@ -184,6 +253,22 @@ void black(Move* move)
 {
     switch (board[move->y1][move->x1]) {
     case 'p':
+        /*if ((move->type_move == 'x' || move->type_move == 'X') &&
+            ((move->y2 - move->y1) <= 2 || (move->y2 - move->y1) >= 1) &&
+                (move->x1 - move->x2 == 0) || board[move->y2][move->x2] == 'K') {
+            input(move, 1);
+            return;
+        }*/
+
+        if ((move->type_move == 'x' || move->type_move == 'X') && 
+            ((move->x2 - move->x1 == 1) || (move->x2 - move->x1 == -1)) && 
+                (move->y2 - move->y1 == 1)) {
+            return;
+        } else if (move->type_move == 'x' || move->type_move == 'X') {
+            input(move, 1);
+            return;
+        }
+
         if ((move->y2 - move->y1) > 2 || (move->y2 - move->y1) < 1) {
             input(move, 1);
             return;
@@ -202,6 +287,65 @@ void black(Move* move)
             input(move, 1);
         }
 
+        break;
+
+    case 'n':
+        if ((move->y1 - move->y2 == 2) && (move->x1 - move->x2 == 1)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 2) && (move->x2 - move->x1 == 1)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 2) && (move->x1 - move->x2 == 1)) {
+            break;
+        }
+
+        if ((move->y1 - move->y2 == 2) && (move->x2 - move->x1 == 1)) {
+            break;
+        }
+
+        if ((move->y1 - move->y2 == 1) && (move->x2 - move->x1 == 2)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 1) && (move->x2 - move->x1 == 2)) {
+            break;
+        }
+
+        if ((move->y1 - move->y2 == 1) && (move->x1 - move->x2 == 2)) {
+            break;
+        }
+
+        if ((move->y2 - move->y1 == 1) && (move->x1 - move->x2 == 2)) {
+            break;
+        }
+
+        input(move, 1);
+
+    case 'b':
+        checkD(move);
+
+        break;
+
+    case 'k':
+        if ((move->y1 - move->y2 != 1) && (move->y2 - move->y1 != 1)
+            && ((move->x1 - move->x2 != 1) && (move->x2 - move->x1 != 1))) {
+            input(move, 1);
+        } else {
+            break;
+        }
+
+    case 'q':
+        if (move->y1 == move->y2) {
+            checkX(move);
+        } else if (move->x1 == move->x2) {
+            checkY(move);
+        } else {
+            checkD(move);
+        }
+ 
         break;
     }
 }
@@ -283,3 +427,5 @@ void checkD(Move* move)
         j += cj;
     }
 }
+
+
