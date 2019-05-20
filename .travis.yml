@@ -1,0 +1,5 @@
+sudo: false
+
+language: C
+compiler : gcc
+script: make && git ls-files src/ 
