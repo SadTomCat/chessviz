@@ -169,7 +169,13 @@ void white(Move* move)
             return;
         } 
 
-        if ((move->y1 - move->y2) > 2 || (move->y1 - move->y2) < 1) {
+        if ((move->y1 - move->y2) != 1 && (move->y1 != 6)) {
+            input(move, 1);
+            return;
+        }
+
+        if (((move->y1 - move->y2) > 2 || (move->y1 - move->y2) < 1) && 
+            (move->y1 == 6)) {
             input(move, 1);
             return;
         }
@@ -269,7 +275,13 @@ void black(Move* move)
             return;
         }
 
-        if ((move->y2 - move->y1) > 2 || (move->y2 - move->y1) < 1) {
+        if ((move->y2 - move->y1) != 1 && (move->y1 != 1)) {
+            input(move, 1);
+            return;
+        }
+
+        if (((move->y2 - move->y1) > 2 || (move->y2 - move->y1) < 1) && 
+            (move->y1 == 1)) {
             input(move, 1);
             return;
         }
