@@ -2,4 +2,4 @@ language: c
 os: linux
 compiler : gcc
 
-script: make
+script: make && git diff
