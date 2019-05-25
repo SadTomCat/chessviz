@@ -168,3 +168,153 @@ CTEST(take, location_check)
 
     free(player);
 }
+
+CTEST(moving, movewhitepawn) // Тест белой пешки
+{
+    Move* player = malloc(sizeof(*player));
+    player->flag = 1;
+
+    strcpy(inp, "c2-c3"); // Первый ход на одну клетку
+    input_converter(player, inp);
+    board[player->y1][player->x1] = 'P';
+    int t1 = white(player);
+
+    strcpy(inp, "c2-c4"); // Первый ход на две клетки
+    input_converter(player, inp);
+    int t2 = white(player);
+
+    board[player->y1][player->x1] = ' ';
+
+    strcpy(inp, "c3-c5"); // Не первый ход на две клетки
+    input_converter(player, inp);
+    board[player->y1][player->x1] = 'P';
+    int t3 = white(player);
+
+    strcpy(inp, "c3-d5"); // Ход по диагонали
+    input_converter(player, inp);
+    int t4 = white(player);
+
+    strcpy(inp, "c3-c2"); // Ход назад
+    input_converter(player, inp);
+    int t5 = white(player);
+
+    strcpy(inp, "c3xd4"); // Взятие чужой фигуры
+    input_converter(player, inp);
+    board[player->y2][player->x2] = 'p';
+    int t6 = white(player);
+
+    board[player->y2][player->x2] = ' ';
+
+    strcpy(inp, "c3xd5"); // Взятие чужой фигуры 2
+    input_converter(player, inp);
+    board[player->y2][player->x2] = 'p';
+    int t7 = white(player);
+
+    board[player->y2][player->x2] = ' ';
+    board[player->y1][player->x1] = ' ';
+
+    strcpy(inp, "c2xc4"); // Первый ход через фигуру
+    input_converter(player, inp);
+    board[player->y1][player->x1] = 'P';
+    board[player->y2][player->x2] = 'p';
+    int t8 = white(player);
+
+    board[player->y2][player->x2] = ' ';
+    board[player->y1][player->x1] = ' ';
+
+    const int exp1 = 0;
+    const int exp2 = 0;
+    const int exp3 = 1;
+    const int exp4 = 1;
+    const int exp5 = 1;
+    const int exp6 = 0;
+    const int exp7 = 1;
+    const int exp8 = 1;
+
+
+    ASSERT_EQUAL(exp1, t1);
+    ASSERT_EQUAL(exp2, t2);
+    ASSERT_EQUAL(exp3, t3);
+    ASSERT_EQUAL(exp4, t4);
+    ASSERT_EQUAL(exp5, t5);
+    ASSERT_EQUAL(exp6, t6);
+    ASSERT_EQUAL(exp7, t7);
+    ASSERT_EQUAL(exp8, t8);
+
+    free(player);
+}
+
+CTEST(moving, moveblackpawn) // Тест черной пешки
+{
+    Move* player = malloc(sizeof(*player));
+    player->flag = 2;
+
+    strcpy(inp, "d6-D7"); // Первый ход на одну клетку
+    input_converter(player, inp);
+    board[player->y1][player->x1] = 'P';
+    int t1 = black(player);
+
+    strcpy(inp, "D7-d5"); // Первый ход на две клетки
+    input_converter(player, inp);
+    int t2 = black(player);
+
+    board[player->y1][player->x1] = ' ';
+
+    strcpy(inp, "d6-d4"); // Не первый ход на две клетки
+    input_converter(player, inp);
+    board[player->y1][player->x1] = 'p';
+    int t3 = black(player);
+
+    strcpy(inp, "d6-c5"); // Ход по диагонали
+    input_converter(player, inp);
+    int t4 = black(player);
+
+    strcpy(inp, "d6-d7"); // Ход назад
+    input_converter(player, inp);
+    int t5 = black(player);
+
+    strcpy(inp, "d6xc5"); // Взятие чужой фигуры
+    input_converter(player, inp);
+    board[player->y2][player->x2] = 'p';
+    int t6 = black(player);
+
+    board[player->y2][player->x2] = ' ';
+
+    strcpy(inp, "d6xc3"); // Взятие чужой фигуры 2
+    input_converter(player, inp);
+    board[player->y2][player->x2] = 'P';
+    int t7 = black(player);
+
+    board[player->y2][player->x2] = ' ';
+    board[player->y1][player->x1] = ' ';
+
+    strcpy(inp, "d7-d5"); // Первый ход через фигуру
+    input_converter(player, inp);
+    board[player->y1][player->x1] = 'p';
+    board[player->y2 - 1][player->x2] = 'P';
+    int t8 = black(player);
+
+    board[player->y2][player->x2] = ' ';
+    board[player->y1][player->x1] = ' ';
+
+    const int exp1 = 0;
+    const int exp2 = 0;
+    const int exp3 = 1;
+    const int exp4 = 1;
+    const int exp5 = 1;
+    const int exp6 = 0;
+    const int exp7 = 1;
+    const int exp8 = 1;
+
+
+    ASSERT_EQUAL(exp1, t1);
+    ASSERT_EQUAL(exp2, t2);
+    ASSERT_EQUAL(exp3, t3);
+    ASSERT_EQUAL(exp4, t4);
+    ASSERT_EQUAL(exp5, t5);
+    ASSERT_EQUAL(exp6, t6);
+    ASSERT_EQUAL(exp7, t7);
+    ASSERT_EQUAL(exp8, t8);
+
+    free(player);
+}

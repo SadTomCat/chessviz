@@ -68,6 +68,17 @@ int input(Move* move, uint8_t type_err)
         return error;
     }
 
+    if (move->flag == 1) {
+        error = white(move);
+    } else {
+        error = black(move);
+    }
+
+    if (error != 0) {
+        return error;
+    }
+
+
     return 0;
 }
 
@@ -123,51 +134,56 @@ int check_figure(Move* move)
             return 5;
         }
     }
-
-    if (move->flag == 1) {
-        white(move);
-    } else {
-        black(move);
-    }
     
     return 0;
 }
 
-void white(Move* move)
-{
+int white(Move* move)
+{   
+    error = 0;
     switch (board[move->y1][move->x1]) {
     case 'P':
-        //попытка забрать перднию фигуру
+        //попытка забрать переднию фигуру
         if ((move->type_move == 'x' || move->type_move == 'X')
             && ((move->x2 - move->x1 == 1) || (move->x2 - move->x1 == -1))
             && (move->y2 - move->y1 == -1)) {
-            return;
+            return 0;
         } else if (move->type_move == 'x' || move->type_move == 'X') {
-            input(move, 1);
-            return;
+            return 1;
         }
 
         if ((move->y1 - move->y2) != 1 && (move->y1 != 6)) {
-            input(move, 1);
-            return;
+            return 1;
         }
 
         if (((move->y1 - move->y2) > 2 || (move->y1 - move->y2) < 1)
             && (move->y1 == 6)) {
-            input(move, 1);
-            return;
+            return 1;
         }
 
-        checkY(move);
+        error = checkY(move);
+
+        if (error != 0) {
+            return error;
+        }
+        
         break;
 
     case 'R':
         if (move->y1 == move->y2) {
-            checkX(move);
+            error = checkX(move);
+
+            if (error != 0) {
+                return error;
+            }
         } else if (move->x1 == move->x2) {
-            checkY(move);
+            error = checkY(move);
+
+            if (error != 0) {
+                return error;
+            }
         } else {
-            input(move, 1);
+            return 1;
         }
 
         break;
@@ -205,36 +221,58 @@ void white(Move* move)
             break;
         }
 
-        input(move, 1);
+        return 1;
 
     case 'B':
-        checkD(move);
+        error = checkD(move);
+
+        if (error != 0) {
+            return error;
+        }
 
         break;
 
     case 'K':
         if ((move->y1 - move->y2 != 1) && (move->y2 - move->y1 != 1)
             && ((move->x1 - move->x2 != 1) && (move->x2 - move->x1 != 1))) {
-            input(move, 1);
+            return 1;
         } else {
             break;
         }
 
     case 'Q':
         if (move->y1 == move->y2) {
-            checkX(move);
+            error = checkX(move);
+
+            if (error != 0) {
+                return error;
+            }
+
         } else if (move->x1 == move->x2) {
-            checkX(move);
+            error = checkX(move);
+
+            if (error != 0) {
+                return error;
+            }
+
         } else {
-            checkD(move);
+            error = checkD(move);
+
+            if (error != 0) {
+                return error;
+            }
         }
 
         break;
     }
+
+    return 0;
 }
 
-void black(Move* move)
+int black(Move* move)
 {
+    error = 0;
+
     switch (board[move->y1][move->x1]) {
     case 'p':
         /*if ((move->type_move == 'x' || move->type_move == 'X') &&
@@ -246,33 +284,43 @@ void black(Move* move)
         if ((move->type_move == 'x' || move->type_move == 'X')
             && ((move->x2 - move->x1 == 1) || (move->x2 - move->x1 == -1))
             && (move->y2 - move->y1 == 1)) {
-            return;
+            return 0;
         } else if (move->type_move == 'x' || move->type_move == 'X') {
-            input(move, 1);
-            return;
+            return 1;
         }
 
         if ((move->y2 - move->y1) != 1 && (move->y1 != 1)) {
-            input(move, 1);
-            return;
+            return 1;
         }
 
         if (((move->y2 - move->y1) > 2 || (move->y2 - move->y1) < 1)
             && (move->y1 == 1)) {
-            input(move, 1);
-            return;
+            return 1;
         }
 
-        checkY(move);
+        error = checkY(move);
+        
+        if (error != 0) {
+            return error;
+        }
+
         break;
 
     case 'r':
         if (move->y1 == move->y2) {
-            checkX(move);
+            error = checkX(move);
+
+            if (error != 0) {
+                return error;
+            }
         } else if (move->x1 == move->x2) {
-            checkY(move);
+            error = checkY(move);
+
+            if (error != 0) {
+                return error;
+            }
         } else {
-            input(move, 1);
+            return 1;
         }
 
         break;
@@ -310,41 +358,58 @@ void black(Move* move)
             break;
         }
 
-        input(move, 1);
+        return 1;
 
     case 'b':
-        checkD(move);
+        error = checkD(move);
+
+        if (error != 0) {
+            return error;
+        }
 
         break;
 
     case 'k':
         if ((move->y1 - move->y2 != 1) && (move->y2 - move->y1 != 1)
             && ((move->x1 - move->x2 != 1) && (move->x2 - move->x1 != 1))) {
-            input(move, 1);
+            return 1;
         } else {
             break;
         }
 
     case 'q':
         if (move->y1 == move->y2) {
-            checkX(move);
+            error = checkX(move);
+
+            if (error != 0) {
+                return error;
+            }
         } else if (move->x1 == move->x2) {
-            checkY(move);
+            error = checkY(move);
+            
+            if (error != 0) {
+                return error;
+            }
         } else {
-            checkD(move);
+            error = checkD(move);
+            
+            if (error != 0) {
+                return error;
+            }
         }
 
         break;
     }
+
+    return 0;
 }
 
-void checkY(Move* move)
+int checkY(Move* move)
 {
     int i, c1 = move->y1, c2 = move->y2;
 
     if (move->x1 != move->x2) {
-        input(move, 1);
-        return;
+        return 1;
     }
 
     if (move->y1 > move->y2) {
@@ -354,19 +419,19 @@ void checkY(Move* move)
 
     for (i = c1 + 1; i < c2; i++) {
         if (board[i][move->x1] != ' ') {
-            input(move, 1);
-            return;
+            return 1;
         }
     }
+
+    return 0;
 }
 
-void checkX(Move* move)
+int checkX(Move* move)
 {
     int i, c1 = move->x1, c2 = move->x2;
 
     if (move->y1 != move->y2) {
-        input(move, 1);
-        return;
+        return 1;
     }
 
     if (move->x1 > move->x2) {
@@ -376,19 +441,20 @@ void checkX(Move* move)
 
     for (i = c1 + 1; i < c2; i++) {
         if (board[move->y1][i] != ' ') {
-            input(move, 1);
-            return;
+            return 1;
         }
     }
+
+    return 0;
 }
 
-void checkD(Move* move)
+int checkD(Move* move)
 {
     int i, j, c1 = move->y2, c2 = move->y1, ci, cj;
 
     if (((move->y2 - move->y1) != (move->x2 - move->x1))
         && ((move->y2 - move->y1) != (move->x1 - move->x2))) {
-        input(move, 1);
+        return 1;
     }
 
     if (move->y2 > move->y1) {
@@ -410,12 +476,14 @@ void checkD(Move* move)
 
     while ((i < c2) && (i > c1)) {
         if (board[i][j] != ' ') {
-            input(move, 1);
+            return 1;
         }
 
         i += ci;
         j += cj;
     }
+
+    return 0;
 }
 
 int input_converter(Move* move, char* inp) 
