@@ -22,6 +22,6 @@ run:
 	./bin/chessviz
 
 clean:
-	rm ./built/*.o
+	rm ./built/src/*.o
 	rm ./bin/*
 
