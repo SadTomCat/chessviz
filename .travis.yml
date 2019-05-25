@@ -3,5 +3,6 @@ os: linux
 compiler : gcc
 
 script:
+  - make
   - git ls-files src/ 
   - bin/chessviz-test
