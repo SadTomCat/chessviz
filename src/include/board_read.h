@@ -4,8 +4,8 @@
 #include "board_print_plain.h"
 
 int input(Move* move, uint8_t type_err);
-void check_figure(Move* move);
-void check_type_move(Move* move);
+int check_figure(Move* move);
+int check_type_move(Move* move);
 void checkX(Move* move);
 void checkY(Move* move);
 void checkD(Move* move);

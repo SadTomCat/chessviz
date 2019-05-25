@@ -62,56 +62,65 @@ int input(Move* move, uint8_t type_err)
 
     // printf("%d %d %c %d %d\n", move->x1, move->y1, move->type_move, move->x2,
     // move->y2); while (getchar() != '1');
-    check_figure(move);
+    error = check_figure(move);
+
+    if (error != 0) {
+        return error;
+    }
+
     return 0;
 }
 
-void check_type_move(Move* move)
+int check_type_move(Move* move)
 {
     if (move->type_move == 'x' || move->type_move == 'X') {
         if (board[move->y2][move->x2] == ' ') {
-            input(move, 2);
-            return;
+            return 2;
         }
     }
 
     if (move->type_move == '-') {
         if (board[move->y2][move->x2] != ' ') {
-            input(move, 2);
-            return;
+            return 2;
         }
     }
+
+    return 0;
 }
 
-void check_figure(Move* move)
+int check_figure(Move* move)
 {
     if (move->flag == 1) {
         if (board[move->y1][move->x1] < 65 || board[move->y1][move->x1] > 90) {
-            input(move, 4);
-            return;
+            return 4;
         }
 
-        check_type_move(move);
+        error = check_type_move(move);
+        
+        if (error != 0) {
+            return error;
+        }
 
         if ((board[move->y2][move->x2] < 97 || board[move->y2][move->x2] > 122)
             && (move->type_move == 'x' || move->type_move == 'X')) {
-            input(move, 5);
-            return;
+            return 5;
         }
     }
 
     if (move->flag == 2) {
         if (board[move->y1][move->x1] < 97 || board[move->y1][move->x1] > 122) {
-            input(move, 4);
-            return;
+            return 4;
         }
 
-        check_type_move(move);
+        error = check_type_move(move);
+
+        if (error != 0) {
+            return error;
+        }
 
         if ((board[move->y2][move->x2] < 65 || board[move->y2][move->x2] > 90)
             && (move->type_move == 'x' || move->type_move == 'X')) {
-            input(move, 5);
-            return;
+            return 5;
         }
     }
 
@@ -120,6 +129,8 @@ void check_figure(Move* move)
     } else {
         black(move);
     }
+    
+    return 0;
 }
 
 void white(Move* move)
