@@ -249,7 +249,7 @@ int white(Move* move)
             }
 
         } else if (move->x1 == move->x2) {
-            error = checkX(move);
+            error = checkY(move);
 
             if (error != 0) {
                 return error;
