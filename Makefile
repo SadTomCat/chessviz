@@ -1,22 +1,27 @@
-main: ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_plain.o
-	gcc -Werror -Wall -o ./bin/main ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_plain.o
+# 1.$@ - берет из цели
+# 2.$^ - $^ берет из зависимости
+COMPILATION = gcc -Wall -Werror
+OBJECTS = ./built/src/main.o ./built/src/board_read.o ./built/src/game.o ./built/src/board_print_plain.o
 
-./built/main.o: ./src/main.c
-	gcc -Werror -Wall -o ./built/main.o -c ./src/main.c 
+bin/chessviz: $(OBJECTS)
+	$(COMPILATION) -o $@ $(OBJECTS)
 
-./built/board_read.o: ./src/board_read.c
-	gcc -Werror -Wall -o ./built/board_read.o -c ./src/board_read.c 
+./built/src/main.o: ./src/main.c
+	$(COMPILATION) -o $@ -c $^
 
-./built/game.o: ./src/game.c
-	gcc -Werror -Wall -o ./built/game.o -c ./src/game.c
+./built/src/board_read.o: ./src/board_read.c
+	$(COMPILATION) -o $@ -c $^
 
-./built/board_print_plain.o: ./src/board_print_plain.c
-	gcc -Werror -Wall -o ./built/board_print_plain.o -c ./src/board_print_plain.c
+./built/src/game.o: ./src/game.c
+	$(COMPILATION) -o $@ -c $^
+
+./built/src/board_print_plain.o: ./src/board_print_plain.c
+	$(COMPILATION) -o $@ -c $^
 
 run:
-	./bin/main
+	./bin/chessviz
 
 clean:
-	rm ./built/*
+	rm ./built/*.o
 	rm ./bin/*
 

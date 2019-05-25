@@ -1,4 +1,5 @@
 bin/
-built/
+built/src
+built/test
 .vscode
 
