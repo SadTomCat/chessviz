@@ -13,4 +13,4 @@ int white(Move* move);
 int black(Move* move);
 int input_converter(Move* move, char* inp);
 
-#endif //BOARD_READ_H_
+#endif // BOARD_READ_H_

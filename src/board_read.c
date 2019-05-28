@@ -16,7 +16,8 @@ int input(Move* move, uint8_t type_err)
 {
     system("clear");
     printf("Нажмите ENTER.\n\n");
-    while (getchar() != '\n');
+    while (getchar() != '\n')
+        ;
     print_board(move->flag);
 
     switch (type_err) {
@@ -39,7 +40,7 @@ int input(Move* move, uint8_t type_err)
     case 5:
         printf("Вы пытаетесь забрать свою фигуру\n");
         break;
-    
+
     default:
         break;
     }
@@ -55,7 +56,7 @@ int input(Move* move, uint8_t type_err)
     char inp[6];
     fgets(inp, 6, stdin);
     error = input_converter(move, inp);
-    
+
     if (error != 0) {
         return error;
     }
@@ -77,7 +78,6 @@ int input(Move* move, uint8_t type_err)
     if (error != 0) {
         return error;
     }
-
 
     return 0;
 }
@@ -107,7 +107,7 @@ int check_figure(Move* move)
         }
 
         error = check_type_move(move);
-        
+
         if (error != 0) {
             return error;
         }
@@ -134,12 +134,12 @@ int check_figure(Move* move)
             return 5;
         }
     }
-    
+
     return 0;
 }
 
 int white(Move* move)
-{   
+{
     error = 0;
     switch (board[move->y1][move->x1]) {
     case 'P':
@@ -166,7 +166,7 @@ int white(Move* move)
         if (error != 0) {
             return error;
         }
-        
+
         break;
 
     case 'R':
@@ -299,7 +299,7 @@ int black(Move* move)
         }
 
         error = checkY(move);
-        
+
         if (error != 0) {
             return error;
         }
@@ -386,13 +386,13 @@ int black(Move* move)
             }
         } else if (move->x1 == move->x2) {
             error = checkY(move);
-            
+
             if (error != 0) {
                 return error;
             }
         } else {
             error = checkD(move);
-            
+
             if (error != 0) {
                 return error;
             }
@@ -486,7 +486,7 @@ int checkD(Move* move)
     return 0;
 }
 
-int input_converter(Move* move, char* inp) 
+int input_converter(Move* move, char* inp)
 {
     if (inp[0] >= 'a' && inp[0] <= 'h') {
         move->x1 = (int)inp[0] - 'a' + 2;
